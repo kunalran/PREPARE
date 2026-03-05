@@ -1,0 +1,10 @@
+prep_env/
+era5_cache/
+__pycache__/
+*.nc
+final_data/
+data/
+data_cleaned/
+data_expanded/
+geocode_cache.json
+.vscode/
