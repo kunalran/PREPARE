@@ -1,0 +1,174 @@
+{
+  "onion": {
+    "15": [
+      {
+        "baseline": "current_price",
+        "crop": "onion",
+        "horizon_days": 15,
+        "validation_rows": 7033,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 444.2698819849282,
+        "rmse": 581.7099961767993,
+        "r2": 0.7246695732913733,
+        "mape_pct": 18.30150932981046,
+        "wape_pct": 17.660499705825842
+      },
+      {
+        "baseline": "roll_mean_7",
+        "crop": "onion",
+        "horizon_days": 15,
+        "validation_rows": 7033,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 464.20491650949697,
+        "rmse": 667.148451070221,
+        "r2": 0.6378519773411905,
+        "mape_pct": 21.284497163932933,
+        "wape_pct": 18.452951964312987
+      },
+      {
+        "baseline": "roll_mean_28",
+        "crop": "onion",
+        "horizon_days": 15,
+        "validation_rows": 7033,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 446.6718126115435,
+        "rmse": 812.9944241253239,
+        "r2": 0.46220558443419224,
+        "mape_pct": 23.864130565218016,
+        "wape_pct": 17.755980621469348
+      }
+    ]
+  },
+  "potato": {
+    "15": [
+      {
+        "baseline": "current_price",
+        "crop": "potato",
+        "horizon_days": 15,
+        "validation_rows": 4780,
+        "validation_start": "2025-09-02",
+        "validation_end": "2025-11-30",
+        "mae": 231.12204602510457,
+        "rmse": 400.15453003965257,
+        "r2": 0.9006643493221329,
+        "mape_pct": 12.142361793944351,
+        "wape_pct": 10.97052032318818
+      },
+      {
+        "baseline": "roll_mean_7",
+        "crop": "potato",
+        "horizon_days": 15,
+        "validation_rows": 4780,
+        "validation_start": "2025-09-02",
+        "validation_end": "2025-11-30",
+        "mae": 245.65168490723818,
+        "rmse": 445.33733123848725,
+        "r2": 0.8769652277337362,
+        "mape_pct": 12.932311035038612,
+        "wape_pct": 11.660189272500432
+      },
+      {
+        "baseline": "roll_mean_28",
+        "crop": "potato",
+        "horizon_days": 15,
+        "validation_rows": 4780,
+        "validation_start": "2025-09-02",
+        "validation_end": "2025-11-30",
+        "mae": 273.3227603307787,
+        "rmse": 559.2471752991231,
+        "r2": 0.8059751913939956,
+        "mape_pct": 13.827693505696747,
+        "wape_pct": 12.973634270583611
+      }
+    ]
+  },
+  "tomato": {
+    "15": [
+      {
+        "baseline": "current_price",
+        "crop": "tomato",
+        "horizon_days": 15,
+        "validation_rows": 26655,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 812.2425053460889,
+        "rmse": 1185.4745790611464,
+        "r2": 0.3154241269811391,
+        "mape_pct": 23.291186235077355,
+        "wape_pct": 24.48532396411513
+      },
+      {
+        "baseline": "roll_mean_7",
+        "crop": "tomato",
+        "horizon_days": 15,
+        "validation_rows": 26655,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 796.077739168715,
+        "rmse": 1145.0804768003804,
+        "r2": 0.36128205469446595,
+        "mape_pct": 22.595003768451043,
+        "wape_pct": 23.998031641868923
+      },
+      {
+        "baseline": "roll_mean_28",
+        "crop": "tomato",
+        "horizon_days": 15,
+        "validation_rows": 26655,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 765.5733629563989,
+        "rmse": 1103.9921963136394,
+        "r2": 0.40629718932774206,
+        "mape_pct": 21.540084522214567,
+        "wape_pct": 23.078466944176135
+      }
+    ]
+  },
+  "wheat": {
+    "15": [
+      {
+        "baseline": "current_price",
+        "crop": "wheat",
+        "horizon_days": 15,
+        "validation_rows": 3761,
+        "validation_start": "2025-09-02",
+        "validation_end": "2025-11-30",
+        "mae": 58.919773996277584,
+        "rmse": 116.270545982613,
+        "r2": 0.5564344313303037,
+        "mape_pct": 2.317179496773092,
+        "wape_pct": 2.3453851715395415
+      },
+      {
+        "baseline": "roll_mean_7",
+        "crop": "wheat",
+        "horizon_days": 15,
+        "validation_rows": 3761,
+        "validation_start": "2025-09-02",
+        "validation_end": "2025-11-30",
+        "mae": 58.57796334950325,
+        "rmse": 109.82401466235419,
+        "r2": 0.6042571888801938,
+        "mape_pct": 2.289763669874454,
+        "wape_pct": 2.3317789139447735
+      },
+      {
+        "baseline": "roll_mean_28",
+        "crop": "wheat",
+        "horizon_days": 15,
+        "validation_rows": 3761,
+        "validation_start": "2025-09-02",
+        "validation_end": "2025-11-30",
+        "mae": 69.93331627563782,
+        "rmse": 114.8560642279948,
+        "r2": 0.5671611206732241,
+        "mape_pct": 2.7365877303794512,
+        "wape_pct": 2.7837948427946837
+      }
+    ]
+  }
+}

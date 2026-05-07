@@ -1,0 +1,50 @@
+{
+  "onion": {
+    "crop": "onion",
+    "horizon_days": 15,
+    "train_windows": 810,
+    "validation_windows": 31,
+    "validation_start": "2025-10-03",
+    "validation_end": "2025-12-31",
+    "mae": 2119.075439453125,
+    "rmse": 2956.566162109375,
+    "r2": -6.888993655890132,
+    "wape_pct": 95.68690657615662
+  },
+  "potato": {
+    "crop": "potato",
+    "horizon_days": 15,
+    "train_windows": 808,
+    "validation_windows": 30,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 279.1346740722656,
+    "rmse": 929.6788330078125,
+    "r2": 0.5601595464541451,
+    "wape_pct": 13.605302572250366
+  },
+  "tomato": {
+    "crop": "tomato",
+    "horizon_days": 15,
+    "train_windows": 794,
+    "validation_windows": 75,
+    "validation_start": "2025-10-03",
+    "validation_end": "2025-12-31",
+    "mae": 958.8613891601562,
+    "rmse": 1297.796875,
+    "r2": 0.19777276826076173,
+    "wape_pct": 29.153552651405334
+  },
+  "wheat": {
+    "crop": "wheat",
+    "horizon_days": 15,
+    "train_windows": 810,
+    "validation_windows": 30,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 131.59214782714844,
+    "rmse": 174.75466918945312,
+    "r2": 0.17373251738178108,
+    "wape_pct": 5.216868594288826
+  }
+}

@@ -1,0 +1,19 @@
+You are working in the PREPARE project.
+
+Goal:
+- Keep improving the crop forecasting models until the 15-day R^2 for every crop is at least 0.75.
+- Crops: onion, potato, tomato, wheat.
+
+Rules:
+- Operate autonomously in this workspace.
+- Prefer editing existing training/evaluation scripts rather than creating throwaway notebooks.
+- Retrain models as needed.
+- Save improved per-crop model artifacts under models/per_crop_histgb or a clearly named replacement folder if you intentionally create a new version.
+- Ensure per-crop metrics JSON files are updated and contain r2 for each horizon.
+- After each iteration, leave the workspace in a state where check_r2_targets.py can evaluate the current best model folder.
+- If a change makes results worse, continue iterating rather than stopping.
+- Focus on improving 15-day R^2, especially for onion and tomato.
+
+When done with this iteration:
+- Summarize the change you made.
+- Report the current 15-day R^2 values for onion, potato, tomato, and wheat.

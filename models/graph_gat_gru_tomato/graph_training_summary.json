@@ -1,0 +1,17 @@
+{
+  "tomato": {
+    "crop": "tomato",
+    "horizon_days": 15,
+    "target_mode": "delta_current",
+    "correction_scale": 0.25,
+    "best_alpha": 0.2,
+    "train_windows": 741,
+    "validation_windows": 75,
+    "validation_start": "2025-10-03",
+    "validation_end": "2025-12-31",
+    "mae": 810.215576171875,
+    "rmse": 1169.00146484375,
+    "r2": 0.3325904623081103,
+    "wape_pct": 24.428246915340424
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "onion": [
+    {
+      "crop": "onion",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "series_mean_center",
+      "cluster_count": 4,
+      "train_rows": 250000,
+      "validation_rows": 7033,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "mae": 364.94590796356084,
+      "rmse": 485.95965265869756,
+      "r2": 0.8078494729072788,
+      "mape_pct": 16.27143986467817,
+      "wape_pct": 14.507233916998816
+    }
+  ],
+  "potato": [
+    {
+      "crop": "potato",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "series_mean_center",
+      "cluster_count": 4,
+      "train_rows": 250000,
+      "validation_rows": 4780,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "mae": 228.18047516863052,
+      "rmse": 391.9270474295392,
+      "r2": 0.9047071892922078,
+      "mape_pct": 11.808025889606895,
+      "wape_pct": 10.830894686352387
+    }
+  ],
+  "tomato": [
+    {
+      "crop": "tomato",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "series_mean_center",
+      "cluster_count": 4,
+      "train_rows": 250000,
+      "validation_rows": 26655,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "mae": 817.0844132020183,
+      "rmse": 1167.0046363433194,
+      "r2": 0.3365896225463272,
+      "mape_pct": 22.531113755666322,
+      "wape_pct": 24.631284907646773
+    }
+  ],
+  "wheat": [
+    {
+      "crop": "wheat",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "series_mean_center",
+      "cluster_count": 4,
+      "train_rows": 209726,
+      "validation_rows": 3761,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "mae": 69.54269864994379,
+      "rmse": 115.36969150913681,
+      "r2": 0.5632812219105533,
+      "mape_pct": 2.7701697147908093,
+      "wape_pct": 2.7682457541796683
+    }
+  ]
+}
