@@ -1,0 +1,70 @@
+{
+  "onion": [
+    {
+      "crop": "onion",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "none",
+      "train_rows": 250000,
+      "validation_rows": 7033,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "mae": 542.9723461328218,
+      "rmse": 678.3260465769484,
+      "r2": 0.6256152575838114,
+      "mape_pct": 21.26763837203638,
+      "wape_pct": 21.584094146349486
+    }
+  ],
+  "potato": [
+    {
+      "crop": "potato",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "none",
+      "train_rows": 250000,
+      "validation_rows": 4780,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "mae": 222.18049523134002,
+      "rmse": 346.2287018090664,
+      "r2": 0.9256337640832373,
+      "mape_pct": 11.898048788297192,
+      "wape_pct": 10.546097528431687
+    }
+  ],
+  "tomato": [
+    {
+      "crop": "tomato",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "none",
+      "train_rows": 250000,
+      "validation_rows": 26655,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "mae": 878.2182737887679,
+      "rmse": 1231.2710296945334,
+      "r2": 0.2615103377932395,
+      "mape_pct": 23.56331945072075,
+      "wape_pct": 26.47418573072769
+    }
+  ],
+  "wheat": [
+    {
+      "crop": "wheat",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "none",
+      "train_rows": 209726,
+      "validation_rows": 3761,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "mae": 61.83375274436807,
+      "rmse": 107.45278948920883,
+      "r2": 0.6211617758869781,
+      "mape_pct": 2.4570066199276277,
+      "wape_pct": 2.4613802285875295
+    }
+  ]
+}

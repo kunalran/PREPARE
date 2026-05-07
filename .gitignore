@@ -1,4 +1,5 @@
 prep_env/
+.venv/
 era5_cache/
 __pycache__/
 *.nc
@@ -8,3 +9,8 @@ data_cleaned/
 data_expanded/
 geocode_cache.json
 .vscode/
+.DS_Store
+autotune_logs/
+autotune_logs_strict/
+*.log
+models/**/*.joblib

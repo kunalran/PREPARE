@@ -1,0 +1,70 @@
+{
+  "onion": [
+    {
+      "crop": "onion",
+      "horizon_days": 15,
+      "target_mode": "price",
+      "normalization_mode": "series_zscore",
+      "train_rows": 250000,
+      "validation_rows": 7033,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "mae": 381.7089107473786,
+      "rmse": 505.93415927934444,
+      "r2": 0.7917288285903177,
+      "mape_pct": 18.82481136152142,
+      "wape_pct": 15.173592402543
+    }
+  ],
+  "potato": [
+    {
+      "crop": "potato",
+      "horizon_days": 15,
+      "target_mode": "price",
+      "normalization_mode": "series_zscore",
+      "train_rows": 250000,
+      "validation_rows": 4780,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "mae": 276.86047268878633,
+      "rmse": 496.00226801164234,
+      "r2": 0.8473780528452709,
+      "mape_pct": 13.955369399912602,
+      "wape_pct": 13.141556569596583
+    }
+  ],
+  "tomato": [
+    {
+      "crop": "tomato",
+      "horizon_days": 15,
+      "target_mode": "price",
+      "normalization_mode": "series_zscore",
+      "train_rows": 250000,
+      "validation_rows": 26655,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "mae": 1107.5087877207716,
+      "rmse": 1530.7567301076156,
+      "r2": -0.14143044693928775,
+      "mape_pct": 29.177782956407516,
+      "wape_pct": 33.38622552004084
+    }
+  ],
+  "wheat": [
+    {
+      "crop": "wheat",
+      "horizon_days": 15,
+      "target_mode": "price",
+      "normalization_mode": "series_zscore",
+      "train_rows": 209726,
+      "validation_rows": 3761,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "mae": 138.11869984312017,
+      "rmse": 168.39049688066677,
+      "r2": 0.06963457943996387,
+      "mape_pct": 5.567903130123404,
+      "wape_pct": 5.498010744997779
+    }
+  ]
+}

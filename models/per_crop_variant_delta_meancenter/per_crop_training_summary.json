@@ -1,0 +1,70 @@
+{
+  "onion": [
+    {
+      "crop": "onion",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "series_mean_center",
+      "train_rows": 250000,
+      "validation_rows": 7033,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "mae": 452.80820650363773,
+      "rmse": 580.6732115109081,
+      "r2": 0.7256501442954698,
+      "mape_pct": 18.41754166687659,
+      "wape_pct": 17.99991294036068
+    }
+  ],
+  "potato": [
+    {
+      "crop": "potato",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "series_mean_center",
+      "train_rows": 250000,
+      "validation_rows": 4780,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "mae": 223.6607197039127,
+      "rmse": 352.63167164284425,
+      "r2": 0.922857750818444,
+      "mape_pct": 11.914216987889745,
+      "wape_pct": 10.616358383847771
+    }
+  ],
+  "tomato": [
+    {
+      "crop": "tomato",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "series_mean_center",
+      "train_rows": 250000,
+      "validation_rows": 26655,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "mae": 872.065629405822,
+      "rmse": 1226.3513928231819,
+      "r2": 0.2673999310972168,
+      "mape_pct": 23.496321979180767,
+      "wape_pct": 26.28871219300852
+    }
+  ],
+  "wheat": [
+    {
+      "crop": "wheat",
+      "horizon_days": 15,
+      "target_mode": "delta_current",
+      "normalization_mode": "series_mean_center",
+      "train_rows": 209726,
+      "validation_rows": 3761,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "mae": 56.20785573689324,
+      "rmse": 105.01667496144513,
+      "r2": 0.6381447062323904,
+      "mape_pct": 2.220806833302982,
+      "wape_pct": 2.23743341883273
+    }
+  ]
+}
