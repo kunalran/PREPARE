@@ -14,3 +14,5 @@ autotune_logs/
 autotune_logs_strict/
 *.log
 models/**/*.joblib
+
+final_data_hourly/
