@@ -4,17 +4,13 @@ import argparse
 import json
 from dataclasses import dataclass
 from pathlib import Path
-import sys
 
 import joblib
 import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from training.train_global_price_model import (
+from train_global_price_model import (
     Config,
     load_and_engineer_crop,
     make_pipeline,

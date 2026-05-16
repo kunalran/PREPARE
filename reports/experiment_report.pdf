@@ -1,0 +1,191 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 4 /Kids [6 0 R 8 0 R 10 0 R 12 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Length 2531 >>
+stream
+BT /F2 18 Tf 1 0 0 1 54 744.00 Tm (PREPARE Price Forecasting Report) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 699.90 Tm (Scope) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 669.60 Tm (This report summarizes the forecasting experiments run on the `final_data_hourly` dataset) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 653.65 Tm (for the 15-day forecasting horizon across onion, potato, tomato, and wheat.) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 625.70 Tm (1. Baseline Models Tried) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 595.40 Tm (- Strict per-crop `HistGradientBoostingRegressor` baseline.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 579.45 Tm (- Naive baselines:) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 563.50 Tm (- current price) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 547.55 Tm (- 7-day rolling mean) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 531.60 Tm (- 28-day rolling mean) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 515.65 Tm (- Tabular target-shift and normalization variants:) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 499.70 Tm (- `delta_current`) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 483.75 Tm (- `delta_current + series_mean_center`) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 467.80 Tm (- `series_zscore`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 451.85 Tm (- Clustered tabular model:) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 435.90 Tm (- mandi clusters from mean arrival, arrival variability, and mean price) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 419.95 Tm (- cluster ID used as an input feature) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 404.00 Tm (- Graph models:) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 388.05 Tm (- GraphWaveNet) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 372.10 Tm (- GraphWaveNet+) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 356.15 Tm (- SAGMM-inspired graph mixture model) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 340.20 Tm (- final GAT-GRU graph model with correlation-heavy edges) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 312.25 Tm (2. Strict Baseline Results) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 281.95 Tm (- Onion: `R2 = 0.6281`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 266.00 Tm (- Potato: `R2 = 0.9255`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 250.05 Tm (- Tomato: `R2 = 0.2113`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 234.10 Tm (- Wheat: `R2 = 0.5915`) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 206.15 Tm (3. Naive Baseline Results) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 175.85 Tm (Best naive baseline for each crop:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 151.90 Tm (- Onion: `current_price = 0.7247`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 135.95 Tm (- Potato: `current_price = 0.9007`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 120.00 Tm (- Tomato: `roll_mean_28 = 0.4063`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 104.05 Tm (- Wheat: `roll_mean_7 = 0.6043`) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 80.10 Tm (Interpretation:) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 2319 >>
+stream
+BT /F1 11 Tf 1 0 0 1 68 744.00 Tm (- The strict model beat naive only for potato.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 728.05 Tm (- Onion, tomato, and wheat required a better problem formulation.) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 700.10 Tm (4. Tabular Variant Results) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 669.80 Tm (### `delta_current`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 645.85 Tm (- Onion: `0.6256`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 629.90 Tm (- Potato: `0.9256`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 613.95 Tm (- Tomato: `0.2615`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 598.00 Tm (- Wheat: `0.6212`) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 574.05 Tm (### `delta_current + series_mean_center`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 550.10 Tm (- Onion: `0.7257`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 534.15 Tm (- Potato: `0.9229`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 518.20 Tm (- Tomato: `0.2674`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 502.25 Tm (- Wheat: `0.6381`) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 478.30 Tm (### `series_zscore`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 454.35 Tm (- Onion: `0.7917`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 438.40 Tm (- Potato: `0.8474`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 422.45 Tm (- Tomato: `-0.1414`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 406.50 Tm (- Wheat: `0.0696`) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 382.55 Tm (Interpretation:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 358.60 Tm (- `delta_current + series_mean_center` was the strongest general tabular improvement.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 342.65 Tm (- `series_zscore` helped onion but hurt the other crops.) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 314.70 Tm (5. Clustered Tabular Results) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 284.40 Tm (- Onion: `0.8078`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 268.45 Tm (- Potato: `0.9047`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 252.50 Tm (- Tomato: `0.3366`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 236.55 Tm (- Wheat: `0.5633`) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 212.60 Tm (Interpretation:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 188.65 Tm (- Clustering gave a major improvement for onion.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 172.70 Tm (- It improved tomato over the strict baseline.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 156.75 Tm (- It was worse than the best non-clustered variants for potato and wheat.) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 128.80 Tm (6. Early Graph Models) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 98.50 Tm (Tried:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 74.55 Tm (- GraphWaveNet) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 2538 >>
+stream
+BT /F1 11 Tf 1 0 0 1 68 744.00 Tm (- GraphWaveNet+) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 728.05 Tm (- SAGMM-inspired model) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 704.10 Tm (Outcome:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 680.15 Tm (- All early graph models performed poorly and were not competitive with the tabular) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 664.20 Tm (  baselines.) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 640.25 Tm (Main reasons identified:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 616.30 Tm (- weak edge construction) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 600.35 Tm (- thinner feature set than the tabular pipeline) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 584.40 Tm (- direct graph forecasting instead of anchored residual forecasting) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 568.45 Tm (- evaluation mismatch before restricting to observed validation rows) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 540.50 Tm (7. Final Graph Model) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 510.20 Tm (Final graph model:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 486.25 Tm (- GAT-GRU mandi graph model) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 470.30 Tm (- one node per mandi series) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 454.35 Tm (- richer tabular-style lag, rolling, state, national, weather, and calendar features) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 438.40 Tm (- correlation + geo + state + cluster edges) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 422.45 Tm (- residual prediction around a crop-specific anchor) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 398.50 Tm (Crop-specific anchors:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 374.55 Tm (- Onion: `delta_current`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 358.60 Tm (- Potato: `delta_current`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 342.65 Tm (- Tomato: `delta_roll28`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 326.70 Tm (- Wheat: `delta_roll7`) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 302.75 Tm (Reason:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 278.80 Tm (- each crop used the strongest simple anchor found from the naive baseline experiments) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 250.85 Tm (8. Final Graph Results) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 220.55 Tm (- Onion: `0.8544`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 204.60 Tm (- Potato: `0.9287`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 188.65 Tm (- Tomato: `0.4051`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 172.70 Tm (- Wheat: `0.6057`) Tj ET
+BT /F1 11 Tf 1 0 0 1 54 148.75 Tm (Additional graph diagnostics:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 124.80 Tm (- Onion `best_alpha = 0.75`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 108.85 Tm (- Potato `best_alpha = 0.85`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 92.90 Tm (- Tomato `best_alpha = 0.0`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 76.95 Tm (- Wheat `best_alpha = 0.1`) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Length 2041 >>
+stream
+BT /F1 11 Tf 1 0 0 1 54 744.00 Tm (Interpretation:) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 720.05 Tm (- Onion and potato used the graph correction strongly.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 704.10 Tm (- Tomato fell back almost entirely to the 28-day rolling anchor.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 688.15 Tm (- Wheat used only a very small graph correction.) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 660.20 Tm (9. Best Current Result by Crop) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 629.90 Tm (- Onion: graph GAT-GRU `0.8544`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 613.95 Tm (- Potato: graph GAT-GRU `0.9287`) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 598.00 Tm (- Tomato: naive `roll_mean_28 = 0.4063` and graph `0.4051` are effectively tied) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 582.05 Tm (- Wheat: tabular `delta_current + series_mean_center = 0.6381`) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 554.10 Tm (10. Main Conclusions) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 523.80 Tm (- Graph modeling now clearly improves onion and slightly improves potato.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 507.85 Tm (- Tomato remains dominated by a smoothed anchor baseline.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 491.90 Tm (- Wheat improves over the strict baseline with graph, but the best tabular model is still) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 475.95 Tm (  stronger.) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 460.00 Tm (- The key change that made graph modeling viable was switching to anchored residual) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 444.05 Tm (  prediction with richer features and correlation-based edges.) Tj ET
+BT /F2 14 Tf 1 0 0 1 54 416.10 Tm (11. Remaining Work) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 385.80 Tm (- Controlled graph ablations:) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 369.85 Tm (- anchor-only) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 353.90 Tm (- temporal-only) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 337.95 Tm (- geo-only) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 322.00 Tm (- correlation-only) Tj ET
+BT /F1 11 Tf 1 0 0 1 82 306.05 Tm (- shuffled-graph) Tj ET
+BT /F1 11 Tf 1 0 0 1 68 290.10 Tm (- These are needed to isolate exactly why graph structure helps onion and potato.) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 11 0 R >>
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000141 00000 n 
+0000000211 00000 n 
+0000000286 00000 n 
+0000002869 00000 n 
+0000003005 00000 n 
+0000005376 00000 n 
+0000005512 00000 n 
+0000008102 00000 n 
+0000008239 00000 n 
+0000010333 00000 n 
+trailer
+<< /Size 13 /Root 1 0 R >>
+startxref
+10471
+%%EOF

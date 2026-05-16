@@ -5,7 +5,6 @@ import json
 import math
 from dataclasses import asdict, dataclass
 from pathlib import Path
-import sys
 
 import joblib
 import numpy as np
@@ -16,21 +15,8 @@ import torch.nn.functional as F
 from sklearn.cluster import KMeans
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from training.train_graph_wavenet import (
-    CROP_FILES,
-    build_crop_frame,
-    filter_valid_series,
-    pivot_feature,
-    safe_wape,
-)
-from training.train_graph_wavenet_plus import (
-    build_geo_adjacency,
-    build_metadata,
-    row_normalize,
-)
+from train_graph_wavenet import CROP_FILES, build_crop_frame, filter_valid_series, pivot_feature, safe_wape
+from train_graph_wavenet_plus import build_geo_adjacency, build_metadata, row_normalize
 
 
 FEATURE_COLUMNS = [

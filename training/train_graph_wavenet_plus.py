@@ -5,7 +5,6 @@ import json
 import math
 from dataclasses import asdict, dataclass
 from pathlib import Path
-import sys
 
 import joblib
 import numpy as np
@@ -16,10 +15,7 @@ import torch.nn.functional as F
 from sklearn.cluster import KMeans
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from training.train_graph_wavenet import (
+from train_graph_wavenet import (
     CROP_FILES,
     WindowDataset,
     GraphWaveNetLite,

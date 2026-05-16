@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-import sys
 
 import joblib
 import numpy as np
@@ -11,27 +10,9 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from training.train_global_price_model import (
-    Config,
-    load_and_engineer_crop,
-    make_pipeline,
-    safe_mape,
-    safe_wape,
-    sample_training_rows,
-)
-from training.train_per_crop_models import (
-    CROP_FILES,
-    feature_columns,
-    filter_series,
-    selected_crops,
-)
-from training.train_per_crop_variants import (
-    apply_series_normalization,
-    make_target_arrays,
-)
+from train_global_price_model import Config, load_and_engineer_crop, make_pipeline, safe_mape, safe_wape, sample_training_rows
+from train_per_crop_models import CROP_FILES, feature_columns, filter_series, selected_crops
+from train_per_crop_variants import apply_series_normalization, make_target_arrays
 
 
 def parse_args() -> argparse.Namespace:

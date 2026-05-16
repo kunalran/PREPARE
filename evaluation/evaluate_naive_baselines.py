@@ -3,17 +3,14 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-import sys
 
 import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from training.train_global_price_model import Config, load_and_engineer_crop, safe_mape, safe_wape
-from training.train_per_crop_models import CROP_FILES, filter_series
+from train_global_price_model import Config, safe_mape, safe_wape
+from train_per_crop_models import CROP_FILES, filter_series
+from train_global_price_model import load_and_engineer_crop
 
 
 def parse_args() -> argparse.Namespace:

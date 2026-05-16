@@ -3,21 +3,12 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-import sys
 
 import joblib
 import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from training.train_global_price_model import (
-    Config,
-    load_training_frame,
-    safe_mape,
-    safe_wape,
-)
+from train_global_price_model import Config, load_training_frame, safe_mape, safe_wape
 
 
 def parse_args() -> argparse.Namespace:
