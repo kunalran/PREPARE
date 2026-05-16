@@ -1,0 +1,5 @@
+crop,paired_crop,daily_national_price_corr
+onion,wheat,0.7689836926914636
+potato,onion,0.6815904149759023
+tomato,potato,0.24368747789218603
+wheat,onion,0.7689836926914636

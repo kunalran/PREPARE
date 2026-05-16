@@ -1,0 +1,10 @@
+compute a baseline r2 by predicting the previous days price at every day
+check out how many mandis are present for each crop and in what region
+try out simple models
+try other models
+experiment with shifting the price values or substracting a common baseline and then predicting prices
+try out graph based models
+experiment with different distance thresholds for graph nodes on different graph models for all crops
+try out models that cluster/differentiate dense vs sparse mandis (in terms of connections)
+try out grouping mandis based on output volume
+test models that have prices of one other crop with them as a feature to see if correlations can be made or not

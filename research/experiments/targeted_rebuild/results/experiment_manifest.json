@@ -1,0 +1,58 @@
+{
+  "config": {
+    "data_dir": "/Users/rishit/Desktop/p4/PREPARE/final_data_hourly_dow_imputed",
+    "output_root": "/Users/rishit/Desktop/p4/PREPARE/newtests/targeted_rebuild",
+    "horizons": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "graph_horizon": 15,
+    "validation_days": 90,
+    "min_series_observations": 30,
+    "dense_min_pct": 0.0,
+    "max_train_rows_full": 10000,
+    "max_train_rows_simple": 20000,
+    "random_state": 42
+  },
+  "graph_thresholds_km": [
+    75.0,
+    150.0,
+    300.0
+  ],
+  "graph_primary_threshold_km": 150.0,
+  "cross_crop_pairings": [
+    {
+      "crop": "onion",
+      "paired_crop": "wheat",
+      "daily_national_price_corr": 0.7689836926914636
+    },
+    {
+      "crop": "potato",
+      "paired_crop": "onion",
+      "daily_national_price_corr": 0.6815904149759023
+    },
+    {
+      "crop": "tomato",
+      "paired_crop": "potato",
+      "daily_national_price_corr": 0.24368747789218603
+    },
+    {
+      "crop": "wheat",
+      "paired_crop": "onion",
+      "daily_national_price_corr": 0.7689836926914636
+    }
+  ]
+}

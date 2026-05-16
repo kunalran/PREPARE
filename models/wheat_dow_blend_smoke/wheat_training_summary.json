@@ -1,0 +1,24 @@
+{
+  "data_path": "final_data/agmarknet_wheat_data_final.csv",
+  "anchor_col": "price_roll_mean_28",
+  "blend_step": 0.05,
+  "metrics": [
+    {
+      "crop": "wheat",
+      "horizon_days": 15,
+      "anchor_col": "price_roll_mean_28",
+      "best_alpha": 0.75,
+      "train_rows": 239860,
+      "validation_rows": 6656,
+      "validation_start": "2025-09-02",
+      "validation_end": "2025-11-30",
+      "anchor_r2": 0.6937128741644472,
+      "model_only_r2": 0.7093075952700079,
+      "r2": 0.7113141898790061,
+      "mae": 56.98206751970698,
+      "rmse": 103.10370360285125,
+      "mape_pct": 2.251480318451003,
+      "wape_pct": 2.2603677101459994
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "python_executable": "/Users/rishit/Desktop/p4/PREPARE/newtests/venv/bin/python",
+  "python_version": "3.13.5",
+  "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "system": "Darwin",
+  "torch_version": "2.8.0",
+  "mps_built": true,
+  "mps_available": false,
+  "sw_vers": {
+    "ProductName": "macOS",
+    "ProductVersion": "15.7.4",
+    "BuildVersion": "24G517"
+  },
+  "cpu_selected": true,
+  "selected_device": "cpu",
+  "mps_reason": "The MPS backend is supported on MacOS 13.0+.Current OS version can be queried using `sw_vers`",
+  "mps_reason_detail": "Torch reports an OS-version failure even though sw_vers shows a supported macOS version. This points to a local Torch/runtime detection mismatch."
+}

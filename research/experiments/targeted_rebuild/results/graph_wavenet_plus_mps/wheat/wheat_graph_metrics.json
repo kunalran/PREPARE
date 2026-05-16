@@ -1,0 +1,14 @@
+[
+  {
+    "crop": "wheat",
+    "horizon_days": 15,
+    "train_windows": 831,
+    "validation_windows": 33,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 66.71510314941406,
+    "rmse": 88.88736893096089,
+    "r2": 0.3627045154571533,
+    "wape_pct": 2.6307079792022705
+  }
+]

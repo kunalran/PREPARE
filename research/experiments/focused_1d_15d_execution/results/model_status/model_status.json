@@ -1,0 +1,18 @@
+[
+  {
+    "model_name": "xgboost",
+    "status": "ready"
+  },
+  {
+    "model_name": "lightgbm",
+    "status": "ready"
+  },
+  {
+    "model_name": "extratrees",
+    "status": "ready"
+  },
+  {
+    "model_name": "tcn",
+    "status": "ready"
+  }
+]

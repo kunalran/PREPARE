@@ -1,0 +1,5 @@
+baseline_name,crop,validation_rows,validation_start,validation_end,mae,rmse,r2,mape_pct,wape_pct,prediction_definition
+same_day_previous_price,onion,8678,2025-10-03,2025-12-31,119.96287159990587,251.5289667172157,0.9356566950799124,5.065189964926292,4.5133616324358,Predict current-day Modal_Price using previous day's price_lag_1.
+same_day_previous_price,potato,4113,2025-09-02,2025-11-30,110.69362119102823,292.0135170097362,0.9592981361238193,3.6970443652638676,4.2116955483123855,Predict current-day Modal_Price using previous day's price_lag_1.
+same_day_previous_price,tomato,29374,2025-10-03,2025-12-31,239.86686314033028,471.59619090123,0.8851680957651687,7.900274918786007,7.610540617860777,Predict current-day Modal_Price using previous day's price_lag_1.
+same_day_previous_price,wheat,528,2025-09-02,2025-11-30,34.83632541015759,62.733020557115935,0.679416414031659,1.3790846244345192,1.3728595696875239,Predict current-day Modal_Price using previous day's price_lag_1.

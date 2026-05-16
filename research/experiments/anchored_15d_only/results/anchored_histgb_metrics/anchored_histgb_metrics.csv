@@ -1,0 +1,5 @@
+experiment_family,experiment_name,crop,horizon_days,validation_rows,validation_start,validation_end,mae,rmse,r2,mape_pct,wape_pct,train_rows,target_mode,normalization_mode
+tabular_variant,histgb_delta_current_mean_center,onion,15,4974,2025-10-03,2025-12-31,502.6386800719464,631.4189959978555,0.6157744008465535,16.93910453541074,17.57846350198061,1500,delta_current,series_mean_center
+tabular_variant,histgb_delta_current_mean_center,potato,15,2307,2025-09-02,2025-11-30,251.82886860971604,401.15604663440394,0.9192104082377959,9.591166141611183,9.66524383588979,1500,delta_current,series_mean_center
+tabular_variant,histgb_delta_current_mean_center,tomato,15,24442,2025-10-03,2025-12-31,892.6389668381416,1268.5755249878111,0.23284282468993045,25.017461738664533,26.819941247025504,1500,delta_current,series_mean_center
+tabular_variant,histgb_delta_current_mean_center,wheat,15,288,2025-09-02,2025-11-30,58.53879155867963,77.3925363134645,0.5342391958052717,2.3430259444860195,2.3129528923708524,1500,delta_current,series_mean_center

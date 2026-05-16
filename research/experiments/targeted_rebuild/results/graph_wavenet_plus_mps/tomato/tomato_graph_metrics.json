@@ -1,0 +1,14 @@
+[
+  {
+    "crop": "tomato",
+    "horizon_days": 15,
+    "train_windows": 818,
+    "validation_windows": 75,
+    "validation_start": "2025-10-03",
+    "validation_end": "2025-12-31",
+    "mae": 895.7781372070312,
+    "rmse": 1231.3585992715525,
+    "r2": 0.27612441778182983,
+    "wape_pct": 26.935317993164062
+  }
+]

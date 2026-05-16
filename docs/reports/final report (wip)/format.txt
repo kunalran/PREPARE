@@ -1,0 +1,9 @@
+Final Reports would be typically 15 - 30 pages with these additional changes:
+
+A cover page with your details (One page including group members, the guide’s name, and work distribution)
+An abstract (maximum 500 words): Problem statement; solution implemented; impact or future work
+Details Guidelines for Reports: An introduction: Motivation/ rationale of problem undertaken; prior work related to this problem in literature, if any; 
+Solution implemented: Detailed description of methodology; surveys/data collection; experiment setup & execution; outcomes and results. You can use the content of all Biweekly Reports, as well as material from earlier semesters
+Reflection: what worked or did not; alternative approaches attempted; decision-making process; what changes you would like to make to improve; future direction (e.g., can this be handed over to the next cohort to continue).
+Summary: Recap of problem statement and solution; current status; impact created
+References

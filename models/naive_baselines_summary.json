@@ -1,0 +1,45 @@
+{
+  "tomato": {
+    "15": [
+      {
+        "baseline": "current_price",
+        "crop": "tomato",
+        "horizon_days": 15,
+        "validation_rows": 26655,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 812.2425053460889,
+        "rmse": 1185.4745790611464,
+        "r2": 0.3154241269811391,
+        "mape_pct": 23.291186235077355,
+        "wape_pct": 24.48532396411513
+      },
+      {
+        "baseline": "roll_mean_7",
+        "crop": "tomato",
+        "horizon_days": 15,
+        "validation_rows": 26655,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 796.077739168715,
+        "rmse": 1145.0804768003804,
+        "r2": 0.36128205469446595,
+        "mape_pct": 22.595003768451043,
+        "wape_pct": 23.998031641868923
+      },
+      {
+        "baseline": "roll_mean_28",
+        "crop": "tomato",
+        "horizon_days": 15,
+        "validation_rows": 26655,
+        "validation_start": "2025-10-03",
+        "validation_end": "2025-12-31",
+        "mae": 765.5733629563989,
+        "rmse": 1103.9921963136394,
+        "r2": 0.40629718932774206,
+        "mape_pct": 21.540084522214567,
+        "wape_pct": 23.078466944176135
+      }
+    ]
+  }
+}

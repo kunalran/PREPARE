@@ -1,0 +1,32 @@
+{
+  "config": {
+    "data_dir": "/Users/rishit/Desktop/p4/PREPARE/final_data_hourly_dow_imputed",
+    "output_root": "/Users/rishit/Desktop/p4/PREPARE/newtests/focused_1d_15d_expansion",
+    "horizons": [
+      1,
+      15
+    ],
+    "graph_horizon": 15,
+    "validation_days": 90,
+    "min_series_observations": 30,
+    "dense_min_pct": 0.0,
+    "max_train_rows_full": 10000,
+    "max_train_rows_simple": 20000,
+    "random_state": 42
+  },
+  "requested_args": {
+    "run_dir": "focused_1d_15d_expansion",
+    "crops": [
+      "wheat"
+    ],
+    "models": [
+      "extratrees",
+      "mlp",
+      "tcn"
+    ],
+    "device": "cpu",
+    "allow_missing_deps": false,
+    "max_train_windows": 2000
+  },
+  "resolved_device": "cpu"
+}

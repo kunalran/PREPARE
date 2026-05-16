@@ -1,0 +1,18 @@
+{
+  "potato": {
+    "crop": "potato",
+    "horizon_days": 15,
+    "target_mode": "delta_roll28",
+    "graph_mode": "full_graph",
+    "correction_scale": 0.25,
+    "best_alpha": 0.55,
+    "train_windows": 802,
+    "validation_windows": 18,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 239.48228454589844,
+    "rmse": 351.43949514816916,
+    "r2": 0.9379945397377014,
+    "wape_pct": 9.191378593444824
+  }
+}

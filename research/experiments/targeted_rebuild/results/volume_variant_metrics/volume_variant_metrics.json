@@ -1,0 +1,62 @@
+[
+  {
+    "experiment_family": "specialized_variant",
+    "experiment_name": "volume_cluster_histgb",
+    "crop": "onion",
+    "horizon_days": 15,
+    "validation_rows": 4974,
+    "validation_start": "2025-10-03",
+    "validation_end": "2025-12-31",
+    "mae": 442.89628073551563,
+    "rmse": 559.658766547789,
+    "r2": 0.6981455158786982,
+    "mape_pct": 15.583442933479013,
+    "wape_pct": 15.489130492221237,
+    "train_rows": 10000
+  },
+  {
+    "experiment_family": "specialized_variant",
+    "experiment_name": "volume_cluster_histgb",
+    "crop": "potato",
+    "horizon_days": 15,
+    "validation_rows": 2307,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 238.42869188662004,
+    "rmse": 370.70578315579803,
+    "r2": 0.9310097925801013,
+    "mape_pct": 9.318656067479111,
+    "wape_pct": 9.150942293783984,
+    "train_rows": 10000
+  },
+  {
+    "experiment_family": "specialized_variant",
+    "experiment_name": "volume_cluster_histgb",
+    "crop": "tomato",
+    "horizon_days": 15,
+    "validation_rows": 24442,
+    "validation_start": "2025-10-03",
+    "validation_end": "2025-12-31",
+    "mae": 864.1007906269464,
+    "rmse": 1254.1852024730958,
+    "r2": 0.2501488878377811,
+    "mape_pct": 23.470180411094027,
+    "wape_pct": 25.962492448893098,
+    "train_rows": 10000
+  },
+  {
+    "experiment_family": "specialized_variant",
+    "experiment_name": "volume_cluster_histgb",
+    "crop": "wheat",
+    "horizon_days": 15,
+    "validation_rows": 288,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 43.3410402293937,
+    "rmse": 66.72862251534472,
+    "r2": 0.6537505451927808,
+    "mape_pct": 1.7381204526045815,
+    "wape_pct": 1.712467608021096,
+    "train_rows": 10000
+  }
+]

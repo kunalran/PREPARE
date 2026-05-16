@@ -1,0 +1,14 @@
+[
+  {
+    "crop": "potato",
+    "horizon_days": 15,
+    "train_windows": 817,
+    "validation_windows": 33,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 276.3859558105469,
+    "rmse": 426.9526832682985,
+    "r2": 0.9131473898887634,
+    "wape_pct": 10.517256736755371
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "crop": "onion",
+    "horizon_days": 15,
+    "target_mode": "delta_roll28",
+    "graph_mode": "full_graph",
+    "correction_scale": 0.25,
+    "best_alpha": 0.8500000000000001,
+    "train_windows": 795,
+    "validation_windows": 19,
+    "validation_start": "2025-10-03",
+    "validation_end": "2025-12-31",
+    "mae": 355.7626037597656,
+    "rmse": 440.3493286585095,
+    "r2": 0.813127338886261,
+    "wape_pct": 12.441861152648926
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "run_root": "/Users/rishit/Desktop/p4/PREPARE/newtests/focused_1d_15d_execution",
+  "reference_root": "/Users/rishit/Desktop/p4/PREPARE/newtests/targeted_rebuild/results",
+  "summary_path": "/Users/rishit/Desktop/p4/PREPARE/newtests/focused_1d_15d_execution/results/final_comparison/summary.md"
+}
