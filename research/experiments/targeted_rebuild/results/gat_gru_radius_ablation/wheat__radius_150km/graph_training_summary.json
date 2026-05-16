@@ -1,0 +1,18 @@
+{
+  "wheat": {
+    "crop": "wheat",
+    "horizon_days": 15,
+    "target_mode": "delta_current",
+    "graph_mode": "full_graph",
+    "correction_scale": 0.25,
+    "best_alpha": 0.65,
+    "train_windows": 786,
+    "validation_windows": 18,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 40.51601791381836,
+    "rmse": 63.19867104207473,
+    "r2": 0.6894145607948303,
+    "wape_pct": 1.6008468866348267
+  }
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "crop": "wheat",
+    "horizon_days": 15,
+    "target_mode": "delta_roll28",
+    "graph_mode": "full_graph",
+    "correction_scale": 0.25,
+    "best_alpha": 0.4,
+    "train_windows": 786,
+    "validation_windows": 18,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 55.31039047241211,
+    "rmse": 77.47127113687047,
+    "r2": 0.5332906246185303,
+    "wape_pct": 2.185393810272217
+  }
+]

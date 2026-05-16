@@ -1,0 +1,18 @@
+[
+  {
+    "crop": "potato",
+    "horizon_days": 15,
+    "target_mode": "delta_current",
+    "graph_mode": "full_graph",
+    "correction_scale": 0.25,
+    "best_alpha": 0.75,
+    "train_windows": 802,
+    "validation_windows": 18,
+    "validation_start": "2025-09-02",
+    "validation_end": "2025-11-30",
+    "mae": 266.4549255371094,
+    "rmse": 398.30772886676453,
+    "r2": 0.9203535914421082,
+    "wape_pct": 10.226594924926758
+  }
+]

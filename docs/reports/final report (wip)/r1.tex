@@ -1,0 +1,548 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{caption}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{\textbf{Prediction of Prices in Agriculture (PREPARE)} \\ \vspace{0.5cm} \large Final Project Report}
+\author{
+    Varun SG \quad Kunal Ranjan \quad Aryan Gosain \quad Rishit Anand \\[0.3cm]
+    \textit{Plaksha University} \\[0.3cm]
+    \textbf{Faculty Guide:} Prof.\ Mayank Ratan Bhardwaj
+}
+\date{9 May 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Name} & \textbf{Role / Work Distribution} \\
+\midrule
+Varun SG & Data collection, scraping, EDA \\
+Kunal Ranjan & Imputation pipeline, feature engineering \\
+Aryan Gosain & Model development, graph architectures \\
+Rishit Anand & App development, evaluation, integration \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+
+\begin{abstract}
+Agricultural price volatility is one of the most pressing challenges for India's small and marginal farmers, who lack reliable tools to anticipate market shifts. PREPARE (Prediction of Prices in Agriculture) addresses this problem by building a multi-day commodity price forecasting system for four key crops (onion, potato, tomato, and wheat) across hundreds of mandis (agricultural markets) nationwide.
+
+We scraped three years of daily mandi-level price and arrival data (January 2023 to December 2025) from the Agmarknet portal and developed an imputation pipeline to handle the 65--75\% structural missingness inherent in government-reported agricultural datasets. We then conducted a broad model comparison spanning naive baselines, gradient-boosted tabular models, cross-crop feature augmentation, density- and volume-aware variants, and deep spatiotemporal graph neural networks.
+
+Our best-performing architecture, a Graph Attention Network with GRU temporal encoding (GAT-GRU), achieved 15-day $R^2$ scores of 0.81 (onion), 0.94 (potato), 0.39 (tomato), and 0.70 (wheat), substantially exceeding the previous-day baseline (which achieves an $R^2$ of only 0.94 for same-day prediction on onion) and all non-graph alternatives. The final models have been integrated into a bilingual mobile application built with FastAPI, enabling farmers and regulators to access real-time, location-specific price forecasts for horizons of 1 to 15 days.
+
+\noindent\textbf{Keywords:} agricultural price forecasting, graph neural networks, GAT-GRU, mandi networks, spatiotemporal modeling
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Motivation}
+India's agricultural markets serve over 140 million farming households, yet price discovery remains opaque for most producers. Small and marginal farmers, who constitute over 86\% of Indian landholdings, typically make selling decisions based on word-of-mouth or day-of-sale prices. This leads to distress sales during supply gluts and missed opportunities during demand peaks. The absence of reliable, multi-day price forecasts creates an information asymmetry that systematically disadvantages producers relative to intermediaries and large traders.
+
+Government bodies and regulators also face challenges. Policy interventions such as buffer stock releases, export restrictions, or minimum support price adjustments require advance knowledge of price trajectories, yet existing forecasting tools are either too coarse (monthly or quarterly national averages) or too limited in geographic coverage to support localized decision-making.
+
+This project takes the work of Bhardwaj (2023) [1] as its starting point.
+
+\subsection{Problem Statement}
+We aim to build a system that provides accurate daily price forecasts for 1 to 15 days ahead, at the individual mandi level, for four crops central to India's food economy:
+
+\begin{itemize}
+\item \textbf{Onion}: high volatility, politically sensitive pricing
+\item \textbf{Potato}: staple with strong regional price persistence
+\item \textbf{Tomato}: highly perishable, large seasonal swings
+\item \textbf{Wheat}: rabi seasonal crop with distinct geographic production zones
+\end{itemize}
+\subsection{Prior Work}
+Time-series forecasting for agricultural commodities has been explored using ARIMA, VAR, and LSTM-based approaches in prior literature. However, most existing studies treat each market independently, ignoring the spatial dependencies between geographically proximate mandis. Recent advances in spatiotemporal graph neural networks, including STGCN [2], GraphWaveNet [3], and DCRNN [4], have shown promise in traffic and weather forecasting by modeling spatial relationships as graph edges. Our work adapts these ideas to the mandi network, where nodes represent individual markets and edges encode geographic proximity, price correlation, and administrative relationships. The graph attention mechanism from Velickovic et al. (2018) [5] is central to our final architecture.
+
+\subsection{The PREPARE App}
+To bridge the gap between model predictions and end-user accessibility, we developed a bilingual mobile application during Semester 5, supporting two languages to maximize accessibility for farmers across different regions. The app features:
+
+\begin{itemize}
+\item \textbf{Interactive Map View:} An interactive map interface where users can browse and select mandis geographically, providing an intuitive spatial entry point into the forecasting system.
+\item \textbf{Crop Selection Screen:} A dedicated screen to connect crops to selected mandis, allowing users to choose among onion, potato, tomato, and wheat.
+\item \textbf{Highest-Price Display:} Once a crop and set of mandis are selected, the app highlights which mandis currently have the highest predicted prices for that crop, enabling farmers to identify the most profitable selling locations.
+\item \textbf{Day-Horizon Slider:} A slider control that lets users pick the specific forecast day (1 through 15), dynamically updating the displayed predictions to show how prices are expected to evolve over the coming two weeks.
+\end{itemize}
+The backend is powered by a FastAPI server that serves predictions from our trained models in real time. The final trained models have been integrated into the app's prediction pipeline, enabling live forecasts for all four crops across the mandi network.
+
+\section{Data Collection and Preparation}
+\subsection{Data Scraping}
+We wrote a scraping pipeline using Python and Playwright to pull daily market data from the Agmarknet portal (the Government of India's official agricultural market information network). Playwright was used to automate browser-based navigation of the portal, which does not expose a public API and requires interactive form submission for each commodity, state, and date range. The scraper collected records for the period January 2023 to December 2025, covering:
+
+\begin{itemize}
+\item Modal prices (Rs. per quintal)
+\item Arrival quantities (metric tonnes)
+\item Market, district, and state identifiers
+\item Commodity classification
+\end{itemize}
+The raw data was cleaned using a multi-pass pipeline that removed repeated headers, title rows, footnotes, and duplicate entries, and standardized column names, date parsing, and numeric types.
+
+\subsection{Dataset Summary}
+The raw scraped data was first expanded to a full date-by-mandi grid (one row per mandi per calendar day), then filtered to retain only mandis with at least 50\% data availability. After this density filtering, the final working dataset contains:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lllll}
+\toprule
+\textbf{Crop} & \textbf{Original Mandis} & \textbf{Retained Mandis} & \textbf{Retained Rows} & \textbf{Date Range} \\
+\midrule
+Onion & 1,474 & 764 & 470,964 & Jan 2023 to Dec 2025 \\
+Potato & 1,388 & 713 & 459,012 & Jan 2023 to Nov 2025 \\
+Tomato & 1,506 & 693 & 492,870 & Jan 2023 to Dec 2025 \\
+Wheat & 1,421 & 475 & 295,535 & Jan 2023 to Nov 2025 \\
+\bottomrule
+\end{tabular}
+\end{table}
+Sugarcane was initially included but dropped due to roughly 98.6\% missing data (only 19 mandis with 273 total data points, none meeting the 50\% density threshold).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/data_inventory.png}
+\caption{Dataset Inventory Overview}
+\end{figure}
+\subsection{Geographic Coverage}
+Mandi coverage spans 25+ Indian states, with Uttar Pradesh dominating for vegetables and Madhya Pradesh for wheat:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/state_distribution.png}
+\caption{Mandi Distribution Across Top States}
+\end{figure}
+Key observations:
+
+\begin{itemize}
+\item Uttar Pradesh has the highest mandi counts for onion (170), potato (182), and tomato (165)
+\item Madhya Pradesh leads for wheat (167 mandis), reflecting its position as India's largest wheat-producing state
+\item Wheat has the smallest mandi network overall (475 vs 693-764 for vegetables)
+\end{itemize}
+\subsection{Missing Data Analysis}
+Structural missingness is a defining characteristic of Indian agricultural data. Our EDA revealed:
+
+\begin{itemize}
+\item \textbf{Overall missing rates:} 65-75\% across crops after grid expansion
+\item \textbf{Day-of-week patterns:} Sundays show 76-80\% missing rates (most mandis are physically closed) vs roughly 64-68\% on weekdays
+\item \textbf{Long gaps:} Over 600 mandis per crop have consecutive missing streaks exceeding 3 months
+\item \textbf{State variation:} West Bengal and Uttar Pradesh have the most complete data (roughly 40-50\% missing); Assam and smaller northeastern states exceed 98\% missing
+\end{itemize}
+\subsection{Imputation Pipeline}
+We benchmarked 10 imputation strategies at multiple data-availability thresholds (0\%, $\geq$50\%, $\geq$75\%):
+
+\begin{enumerate}
+\item \textbf{Rolling Mean}: trailing window average
+\item \textbf{Capped Forward Fill}: forward-fill with temporal decay
+\item \textbf{State-Day Average}: spatial proxy using same-state, same-day means
+\item \textbf{Historical Seasonality}: month by day-of-week norms
+\item \textbf{Global Crop Median}: structural safety net
+\item \textbf{Forward Fill with Spatial Decay}: blends temporal and spatial signals
+\item \textbf{DOW Ratio (Day of Week)}: applies historical Sunday-to-weekly-average ratios
+\item \textbf{Spline Pipeline}: cubic spline with outlier flagging and smoothing (derived from our mentor's previous work [1])
+\item \textbf{Random Forest}: predicts missing values from contextual features
+\item \textbf{SVD Matrix Factorization}: treats data as a Date-by-Mandi matrix
+\end{enumerate}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/imputation_comparison.png}
+\caption{Imputation Strategy Comparison}
+\end{figure}
+Results:
+
+\begin{itemize}
+\item \textbf{DOW Ratio} dominated at the $\geq$50\% threshold and remained competitive at $\geq$75\%, effectively handling structural weekend missingness
+\item \textbf{Rolling Mean} won at $\geq$75\% for crops like potato and wheat where dense surrounding data was available
+\item \textbf{Spline Pipeline} excelled at the 0\% threshold (bridging multi-month gaps) but over-smoothed dense data
+\item \textbf{Capped Forward Fill} achieved the best MAE but worst RMSE due to stale-price outliers
+\end{itemize}
+We adopted DOW Ratio for mandis with $\geq$50\% data availability per year. After imputation, fill rates were: onion 52.7\%, potato 65.4\%, tomato 53.6\%, wheat 78.3\% of the remaining missing values. No originally observed prices were modified during imputation.
+
+\subsection{Weather Data Extraction}
+The dataset was enriched with weather data from the ERA5 reanalysis product provided by the Copernicus Climate Data Store. For each mandi, its geographic coordinates (latitude and longitude) were used to extract hourly weather observations from the nearest 0.25-degree grid cell. The four weather variables included are:
+
+\begin{itemize}
+\item \textbf{t (temperature)}: 2-metre air temperature in degrees Celsius
+\item \textbf{tp (total precipitation)}: hourly precipitation in mm
+\item \textbf{ssr (surface net solar radiation)}: in MJ/m-squared
+\item \textbf{r (relative humidity)}: computed from temperature and dewpoint using the Magnus formula
+\end{itemize}
+These are stored in the final dataset as 24 hourly columns per variable (e.g. t00 through t23, tp00 through tp23, ssr00 through ssr23, r00 through r23), giving 96 hourly weather columns per row.
+
+\subsection{Feature Engineering}
+The columns present in the final dataset for each mandi-by-date observation are:
+
+\begin{itemize}
+\item State, District, Market, Commodity\_Group, Commodity (identifiers)
+\item Date, Day\_of\_Week (temporal identifiers)
+\item Arrival\_Quantity, Arrival\_Unit, Modal\_Price, Price\_Unit (core market data)
+\item latitude, longitude (geographic coordinates)
+\item 96 hourly weather columns: t00-t23, tp00-tp23, ssr00-ssr23, r00-r23
+\end{itemize}
+Many of the features used for modeling were derived during training rather than stored in the dataset. These model-specific engineered features include:
+
+\begin{itemize}
+\item \textbf{Price features:} Causally filled modal price, lagged prices, rolling means (7-day, 28-day), rolling standard deviations, log-transformed prices
+\item \textbf{Arrival features:} Causally filled arrivals, log-transformed arrivals
+\item \textbf{Calendar features:} Month, day of year, week of year, year (extracted from Date)
+\item \textbf{Weather aggregates:} Daily mean/min/max temperature, temperature range, total rainfall, total and peak solar radiation, mean/min/max relative humidity (aggregated from the 24 hourly columns)
+\item \textbf{Spatial features:} State-level mean price and arrival, national-level mean price and arrival
+\item \textbf{Graph-derived features:} Neighbor mean prices and rolling averages at various distance thresholds
+\end{itemize}
+\section{Methodology}
+\subsection{Experimental Design}
+We structured our experiments as a systematic progression from simple baselines to complex graph-based architectures, ensuring every model family was benchmarked against strong naive baselines:
+
+\noindent\textbf{Evaluation Protocol:}
+
+\begin{itemize}
+\item \textbf{Validation window:} Trailing 90-day period at the end of each crop's date range
+\item \textbf{Metrics:} $R^2$ (primary), WAPE (Weighted Absolute Percentage Error), RMSE, MAE
+\item \textbf{Horizons:} 1-day and 15-day (with sweeps across 1-15 days for baselines)
+\end{itemize}
+\subsection{Same-Day Persistence Baseline}
+As a fundamental reference point, we measured how well yesterday's price predicts today's observed price. This "same-day previous price" baseline establishes the inherent day-to-day price persistence in each crop:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Crop} & \textbf{Validation Rows} & \textbf{Same-Day $R^2$} & \textbf{Same-Day WAPE} \\
+\midrule
+Onion & 8,678 & 0.9357 & 4.51\% \\
+Potato & 4,113 & 0.9593 & 4.21\% \\
+Tomato & 29,374 & 0.8852 & 7.61\% \\
+Wheat & 528 & 0.6794 & 1.37\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+This baseline shows how persistent prices already are: potato and onion prices change very little from one day to the next, while tomato is the most volatile.
+
+\subsection{Baseline Models}
+Four naive baselines were evaluated across all forecast horizons:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Baseline} & \textbf{Description} \\
+\midrule
+Previous-day price & Use yesterday's price to predict the future target \\
+Rolling mean (7-day) & 7-day trailing rolling mean \\
+Rolling mean (28-day) & 28-day trailing rolling mean \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/baseline_comparison.png}
+\caption{Baseline $R^2$ Comparison: 1-Day vs 15-Day}
+\end{figure}
+Key finding: The previous-day baseline is already strong at 1-day ($R^2$ 0.69-0.95), but the rolling baselines, not naive persistence, are the hard baselines to beat at 15 days.
+
+\subsection{Tabular Models}
+We tested progressively more complex tabular approaches:
+
+\begin{enumerate}
+\item \textbf{Simple Numeric HistGradientBoosting}: single regressor over engineered features
+\item \textbf{Anchored HistGB}: predicts a correction (delta) around an anchor (rolling mean), then inverts back to price
+\item \textbf{Cross-Crop HistGB}: adds paired crop price features based on national correlation analysis
+\item \textbf{Classical Linear Models}: LinearRegression, Ridge, ElasticNet
+\item \textbf{Focused Tuned Models}: XGBoost [6], LightGBM [7], ExtraTrees with compact deterministic tuning
+\end{enumerate}
+Cross-crop pairings (by strongest daily national price correlation):
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Crop} & \textbf{Paired With} & \textbf{Correlation} \\
+\midrule
+Onion & Wheat & 0.764 \\
+Potato & Onion & 0.678 \\
+Tomato & Potato & 0.217 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/focused_1d_models.png}
+\caption{1-Day $R^2$: Focused Tuned Models}
+\end{figure}
+\subsection{Specialized Variants}
+\begin{itemize}
+\item \textbf{Density-Bucket HistGB:} Splits mandis by graph density (number of geographic neighbors within threshold)
+\item \textbf{Volume-Cluster HistGB:} Groups mandis by arrival volume clusters
+\item \textbf{TCN (Temporal Convolutional Network):} Windowed sequence model over price, arrival, and calendar features
+\end{itemize}
+\subsection{Graph Neural Network Models}
+The core contribution of PREPARE is the application of spatiotemporal graph models to the mandi network.
+
+\noindent\textbf{Graph Construction:}
+
+\begin{itemize}
+\item \textbf{Nodes:} One node per mandi (market)
+\item \textbf{Edges:} Constructed from geographic proximity (distance thresholds), price correlation, state/administrative grouping, and volume-based clustering
+\item \textbf{Edge weights:} Configurable blend of correlation-heavy, geo-heavy, and state/cluster-heavy presets
+\end{itemize}
+\noindent\textbf{Architectures tested:}
+
+\begin{enumerate}
+\item \textbf{GraphWaveNet / GraphWaveNet+} [3]: adaptive adjacency matrix learning
+\item \textbf{SAGMM-inspired model} [8]: self-adaptive graph mixture of models
+\item \textbf{GAT-GRU}: Graph Attention Network [5] encoder with GRU temporal decoder, predicting residuals around crop-specific anchors
+\end{enumerate}
+\textbf{Target Formulations:} A critical finding was that the choice of prediction target matters more than most architectural hyperparameters:
+
+\begin{itemize}
+\item \texttt{delta_current}: predict deviation from current price
+\item \texttt{delta_roll7}: predict deviation from 7-day rolling mean
+\item \texttt{delta_roll28}: predict deviation from 28-day rolling mean
+\end{itemize}
+\noindent\textbf{GAT-GRU Ablations performed:}
+
+\begin{itemize}
+\item Graph mode: full graph, geo-only, correlation-only, temporal-only, shuffled graph
+\item Target mode sweep: delta\_current, delta\_roll7, delta\_roll28
+\item k-neighbors sweep: 6, 10, 14, 18
+\item Edge-weight presets: correlation-heavy, geo-heavy, state/cluster-heavy
+\item Radius threshold sweep: 75km, 150km, 300km (plus 10km, 25km, 50km refinement for onion)
+\end{itemize}
+\section{Results}
+\subsection{One-Day Forecast Results}
+\begin{table}[H]
+\centering
+\begin{tabular}{lllll}
+\toprule
+\textbf{Crop} & \textbf{Same-Day Baseline $R^2$} & \textbf{Previous-Day $R^2$ (1d)} & \textbf{Best Overall 1-Day Model} & \textbf{$R^2$} \\
+\midrule
+Onion & 0.9357 & 0.9180 & ElasticNet & 0.9535 \\
+Potato & 0.9593 & 0.9518 & ElasticNet & 0.9705 \\
+Tomato & 0.8852 & 0.8448 & TCN (tuned) & 0.9191 \\
+Wheat & 0.6794 & 0.6859 & ExtraTrees (tuned) & 0.7935 \\
+\bottomrule
+\end{tabular}
+\end{table}
+One-day prediction is relatively easy since prices change slowly from day to day. Learned models provide modest gains, with tomato and wheat benefiting most from non-baseline approaches.
+
+\subsection{Fifteen-Day Forecast Results}
+\begin{table}[H]
+\centering
+\begin{tabular}{lllll}
+\toprule
+\textbf{Crop} & \textbf{15-Day Baseline} & \textbf{Best Rolling Baseline} & \textbf{Best Non-Graph} & \textbf{Best Graph (GAT-GRU)} \\
+\midrule
+Onion & 0.6508 & 0.7788 & 0.7075 & 0.8134 \\
+Potato & 0.8937 & 0.9336 & 0.9365 & 0.9380 \\
+Tomato & 0.2588 & 0.3791 & 0.3675 & 0.3914 \\
+Wheat & 0.6209 & 0.6663 & 0.6764 & 0.7026 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/model_family_15d.png}
+\caption{15-Day $R^2$ Across Model Families}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/best_model_r2.png}
+\caption{Best Model $R^2$ vs Previous-Day Baseline}
+\end{figure}
+\subsection{$R^2$ Decay Over Forecast Horizon}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/horizon_decay.png}
+\caption{$R^2$ Decay Over Forecast Horizon}
+\end{figure}
+This plot shows how forecast difficulty increases with horizon length. Potato maintains the most stable performance, while tomato degrades the fastest, reflecting its extreme price volatility due to perishability.
+
+\subsection{Graph vs Non-Graph Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/graph_vs_nongraph.png}
+\caption{Graph vs Non-Graph at 15 Days}
+\end{figure}
+\begin{table}[H]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Crop} & \textbf{Graph $R^2$} & \textbf{Non-Graph $R^2$} & \textbf{Graph Advantage} \\
+\midrule
+Onion & 0.8134 & 0.7788 & +0.0344 \\
+Potato & 0.9380 & 0.9336 & +0.0044 \\
+Tomato & 0.3914 & 0.3791 & +0.0123 \\
+Wheat & 0.7026 & 0.6663 & +0.0363 \\
+\bottomrule
+\end{tabular}
+\end{table}
+Insights:
+
+\begin{itemize}
+\item Graph models clearly benefit onion and wheat (gains of roughly 0.03-0.04 $R^2$)
+\item Potato shows a small but real graph gain
+\item Tomato's graph gain only materializes after radius thresholding within the GAT
+\end{itemize}
+\subsection{WAPE Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/wape_comparison.png}
+\caption{15-Day WAPE: Baseline vs Best Model}
+\end{figure}
+The best GAT-GRU models reduce WAPE by 2-4 percentage points relative to the naive baseline across all crops. Wheat achieves the lowest absolute WAPE (1.54\%) due to its inherently stable pricing.
+
+\subsection{Radius Threshold Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/radius_sweep.png}
+\caption{GAT-GRU Radius Sweep at 15-Day Horizon}
+\end{figure}
+The radius sweep tested 75km, 150km, and 300km thresholds for the deep GAT-GRU model. For onion, an additional refinement at 10km, 25km, and 50km was performed since it showed a slight preference for tighter graphs.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Crop} & \textbf{Best Target Mode} & \textbf{Optimal Radius} & \textbf{$R^2$} \\
+\midrule
+Onion & delta\_roll28 & 25km (refined) & 0.8134 \\
+Potato & delta\_roll28 & 75-300km (flat) & 0.9380 \\
+Tomato & delta\_roll28 & 75km & 0.3912 \\
+Wheat & delta\_current & Full graph (no radius) & 0.7026 \\
+\bottomrule
+\end{tabular}
+\end{table}
+An important observation is that below 75km, the differences between radius settings are very small. Onion's refined low-radius sweep (10km, 25km, 50km) showed $R^2$ values of 0.8133, 0.8134, and 0.8132 respectively, which are effectively indistinguishable. The low-radius refinement was only conducted for onion; for tomato, the test was done at 75km and above, and finer thresholds were not tested separately.
+
+\subsection{Key Ablation Findings}
+\begin{itemize}
+\item \textbf{Target formulation is the most important lever.} The delta\_roll28 target was optimal for onion, potato, and tomato; delta\_current was best for wheat. This single choice mattered more than edge-weight tuning, k-neighbors changes, or graph-mode selection.
+\item \textbf{Graph structure matters by crop.} Wheat clearly benefits from real graph structure (full graph significantly outperforms shuffled graph). For onion, shuffled graph performs similarly, meaning the GRU temporal encoding provides most of the gain rather than the spatial edges. Potato is intermediate.
+\item \textbf{GraphWaveNet+ was not competitive.} The architecture did not suit this problem compared to GAT-GRU.
+\item \textbf{SAGMM-inspired models} [8] were also tested but did not produce competitive results in our setting.
+\end{itemize}
+\section{Reflection}
+\subsection{What Worked}
+\begin{itemize}
+\item \textbf{Systematic baseline evaluation:} By establishing strong rolling-mean baselines early, we avoided the common pitfall of reporting inflated improvements over weak baselines. The rolling 28-day mean turned out to be the real bar to clear at 15 days, not the naive previous-day prediction.
+\item \textbf{Anchored residual prediction:} Predicting deviations from a crop-specific anchor rather than raw prices improved model stability across all crops.
+\item \textbf{DOW Ratio imputation:} This strategy effectively solved the structural weekend/Sunday missingness pattern that dominated our data, and was derived from analysis of the actual data-reporting patterns of mandis.
+\item \textbf{Graph-based spatial modeling:} The GAT-GRU architecture captured inter-mandi dependencies, especially for onion and wheat where the graph advantage was statistically meaningful.
+\end{itemize}
+\subsection{What Did Not Work}
+\begin{itemize}
+\item \textbf{Early graph models (GraphWaveNet, SAGMM-style):} Failed initially due to weak edge construction, thinner feature sets compared to the tabular pipeline, and direct price prediction rather than residual forecasting.
+\item \textbf{Cross-crop features:} Provided only modest gains for crops with strong correlations (onion-wheat) and actually hurt performance for weakly correlated pairs (tomato-potato).
+\item \textbf{Simple tabular models at 15 days:} Collapsed for onion (negative $R^2$) and was weak for tomato, showing that tabular models without spatial awareness are not sufficient for long-horizon forecasting.
+\item \textbf{Density and volume bucketing:} Useful as diagnostic tools but did not produce better final models than the baselines they were compared against.
+\end{itemize}
+\subsection{Alternative Approaches Attempted}
+\begin{itemize}
+\item \textbf{Price normalization variants:} Z-score normalization helped onion but hurt other crops; delta\_current with mean centering was the most consistent general approach.
+\item \textbf{Mandi clustering by production volume:} Provided modest insight into market heterogeneity but did not translate to better predictions.
+\item \textbf{Long-window TCN variants} (window sizes 42 and 56): Did not beat the existing graph models for tomato or wheat 15-day forecasts.
+\end{itemize}
+\subsection{Decision-Making Process}
+Our experimental methodology was structured as a series of hypothesis-driven tests:
+
+\begin{enumerate}
+\item Establish previous-day baseline: revealed the bar is higher than expected
+\item Try simple models: showed 1-day is easy, 15-day is hard
+\item Experiment with target shifts: discovered anchored prediction is important
+\item Add cross-crop features: marginal for most crops
+\item Try graph models: initial failures led to better feature engineering
+\item Ablate graph components: identified target formulation as the key lever
+\item Sweep radius thresholds: fine-tuned spatial resolution per crop
+\end{enumerate}
+\subsection{Future Directions}
+Several directions remain promising for further improving the forecasting system:
+
+\begin{itemize}
+\item \textbf{Alternative graph architectures:} Models that learn their own graph structure from data rather than relying on fixed geographic or correlation-based edges could improve performance for crops like onion and potato, where the fixed edge semantics did not seem to contribute much. Diffusion-based approaches may also benefit wheat, which showed the strongest response to graph structure.
+\item \textbf{Explainable AI:} Making the model's predictions interpretable is important for farmer adoption and regulatory trust. Techniques such as attention visualization over the graph, feature importance analysis, and counterfactual explanations could help users understand why specific price movements are predicted.
+\item \textbf{Game-theoretic modeling:} Agricultural markets involve strategic interactions between producers, intermediaries, and regulators. Incorporating game-theoretic frameworks to model these dynamics could improve forecasts during intervention periods (buffer stock releases, export bans) and better capture the strategic behavior of market participants.
+\item \textbf{Extended crop coverage:} Adding more seasonal crops (mustard, maize, pulses) would broaden the system's utility.
+\item \textbf{This project can be continued by the next cohort.} The codebase, data pipeline, and evaluation framework are modular and documented for easy handoff.
+\end{itemize}
+\section{Summary}
+\subsection{Problem Statement}
+Small and marginal farmers in India lack reliable multi-day price forecasts, creating an information asymmetry that leads to poor selling decisions. Government regulators similarly need accurate price trajectory tools for timely market interventions.
+
+\subsection{Solution Implemented}
+We built an end-to-end price forecasting system comprising:
+
+\begin{enumerate}
+\item A data pipeline scraping daily mandi-level data from Agmarknet
+\item An imputation framework handling 65-75\% structural missingness
+\item A model comparison spanning 10+ model families across 4 crops and multiple forecast horizons
+\item A GAT-GRU spatiotemporal graph model as the final architecture
+\item A bilingual mobile application with FastAPI backend delivering real-time predictions to farmers
+\end{enumerate}
+\subsection{Current Status}
+The system is fully operational with trained models for all four crops at both 1-day and 15-day horizons. The final models have been integrated into the mobile application.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lllll}
+\toprule
+\textbf{Metric} & \textbf{Onion} & \textbf{Potato} & \textbf{Tomato} & \textbf{Wheat} \\
+\midrule
+Same-Day Baseline $R^2$ & 0.9357 & 0.9593 & 0.8852 & 0.6794 \\
+Best 1-Day $R^2$ & 0.9535 & 0.9705 & 0.9191 & 0.7935 \\
+Best 15-Day $R^2$ & 0.8134 & 0.9380 & 0.3914 & 0.7026 \\
+15-Day WAPE & 12.43\% & 9.19\% & 22.94\% & 1.54\% \\
+Recommended Model (15d) & GAT-GRU delta\_roll28 & GAT-GRU delta\_roll28 & GAT-GRU delta\_roll28 & GAT-GRU delta\_current \\
+\bottomrule
+\end{tabular}
+\end{table}
+\subsection{Impact}
+\begin{itemize}
+\item Enables mandi-level, multi-day forecasts, a capability that does not currently exist in publicly available tools
+\item Shows that graph-based spatial modeling meaningfully improves agricultural price forecasting beyond strong naive baselines
+\item Provides a modular, reproducible framework that can be extended to additional crops and regions
+\end{itemize}
+
+\section{References}
+
+\begin{enumerate}
+\item Bhardwaj, M. R. (2023). \textit{Novel Algorithms for Improving Agricultural Planning and Operations using Artificial Intelligence and Game Theory.} Doctoral dissertation, Indian Institute of Science, Bangalore.
+
+\item Yu, B., Yin, H., and Zhu, Z. (2018). Spatio-temporal Graph Convolutional Networks: A Deep Learning Framework for Traffic Forecasting. In \textit{Proceedings of IJCAI 2018}.
+
+\item Wu, Z., Pan, S., Long, G., Jiang, J., and Zhang, C. (2019). Graph WaveNet for Deep Spatial-Temporal Graph Modeling. In \textit{Proceedings of IJCAI 2019}.
+
+\item Li, Y., Yu, R., Shahabi, C., and Liu, Y. (2018). Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting. In \textit{Proceedings of ICLR 2018}.
+
+\item Velickovic, P., Cucurull, G., Casanova, A., Romero, A., Lio, P., and Bengio, Y. (2018). Graph Attention Networks. In \textit{Proceedings of ICLR 2018}.
+
+\item Chen, T. and Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. In \textit{Proceedings of KDD 2016}.
+
+\item Ke, G., Meng, Q., Finley, T., et al. (2017). LightGBM: A Highly Efficient Gradient Boosting Decision Tree. In \textit{Advances in Neural Information Processing Systems (NeurIPS) 2017}.
+
+\item Meena, M., et al. (2025). Self-Adaptive Graph Mixture of Models. \textit{arXiv preprint arXiv:2511.13062}.
+
+\item Agmarknet Portal. Government of India, Ministry of Agriculture and Farmers' Welfare. \url{https://agmarknet.gov.in/}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,24 @@
+{
+  "data_path": "final_data/agmarknet_tomato_data_final.csv",
+  "anchor_col": "price_roll_mean_28",
+  "blend_step": 0.05,
+  "metrics": [
+    {
+      "crop": "tomato",
+      "horizon_days": 15,
+      "anchor_col": "price_roll_mean_28",
+      "best_alpha": 0.0,
+      "train_rows": 236497,
+      "validation_rows": 36286,
+      "validation_start": "2025-10-03",
+      "validation_end": "2025-12-31",
+      "anchor_r2": 0.40956667655783874,
+      "model_only_r2": 0.2484658664105135,
+      "r2": 0.40956667655783874,
+      "mae": 763.7072882399411,
+      "rmse": 1117.463257692563,
+      "mape_pct": 21.625236186346896,
+      "wape_pct": 23.21713431052908
+    }
+  ]
+}

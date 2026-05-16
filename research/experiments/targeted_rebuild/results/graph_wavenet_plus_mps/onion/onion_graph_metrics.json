@@ -1,0 +1,14 @@
+[
+  {
+    "crop": "onion",
+    "horizon_days": 15,
+    "train_windows": 825,
+    "validation_windows": 34,
+    "validation_start": "2025-10-03",
+    "validation_end": "2025-12-31",
+    "mae": 731.2091674804688,
+    "rmse": 909.0797544770205,
+    "r2": 0.16143733263015747,
+    "wape_pct": 27.444684982299805
+  }
+]

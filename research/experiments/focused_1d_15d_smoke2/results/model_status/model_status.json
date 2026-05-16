@@ -1,0 +1,10 @@
+[
+  {
+    "model_name": "extratrees",
+    "status": "ready"
+  },
+  {
+    "model_name": "tcn",
+    "status": "ready"
+  }
+]
